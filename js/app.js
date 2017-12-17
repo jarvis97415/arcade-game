@@ -4,13 +4,22 @@ var level = 1;
 var paused = false;
 var startMusic = true;
 
+// Define variable for the color cycler background
+let hue = 0;
+let hue2 = 89;
+let cycleSpeed = .1;
+const body = document.getElementsByTagName("BODY")[0];
+//const pauseButton = document.getElementsByTagName("BUTTON");
+let colorCycle = setInterval(cycleColors, 10);
+
 const roachRun = new sound('sounds/roachrun.mp3');
 const ouchSound = new sound('sounds/ouch.mp3');
 const wonSound = new sound('sounds/drip.mp3');
 const upSound = new sound('sounds/up.mp3');
 const downSound = new sound('sounds/down.mp3');
 var gameMusic = new sound('sounds/bensound-psychedelic.mp3');
-gameMusic.loop = true;
+
+
 
 // Enemies our player must avoid
 var Enemy = function(position, speed) {
@@ -39,7 +48,6 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    //this.x < 610 ? this.x = this.x + this.speed * dt : this.x = Math.floor(Math.random() * (0 - -100 + -100) + -100);
     if (this.x < 610) {
         this.x = this.x + this.speed * dt
     } else {
@@ -53,7 +61,6 @@ Enemy.prototype.update = function(dt) {
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
-
 
 var Enemies = function() {
         /* Enemies generated are pushed into this array
@@ -70,9 +77,9 @@ Enemies.prototype.create = function(number) {
             var speed = Math.floor(Math.random() * (200 - 50 + 50) + 50);
 
             var position = Math.floor(Math.random() * (3 - 1 + 1) + 1);
-            // Instatiate a new enemy object.
+
             this.enemiesArray[allEnemies.length] = new Enemy(position, speed);
-            // Push the new enemy into the allEnemies array.
+
             allEnemies.push(this.enemiesArray[allEnemies.length]);
         }
 
@@ -83,22 +90,14 @@ Enemies.prototype.create = function(number) {
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function() {
-
         this.sprite = 'images/char-boy.png';
-
         this.x = 202;
         this.ix = 2;
-
         this.y = 388;
         this.iy = 5;
-
-        this.height = 50;
-
-        this.width = 50;
 };
 
 Player.prototype.update = function() {
-
     if (!paused) {for (var i = 0; i < allEnemies.length; i++) {
             if (allEnemies[i].y -7 === this.y) {
                 if ((allEnemies[i].x + 70) > player.x && allEnemies[i].x < (player.x + 70)) {
@@ -110,109 +109,69 @@ Player.prototype.update = function() {
     if (player.y === -27) {
         won();
     }
-        //this.xNow = this.x;
-        //this.yNow = this.y;
 };
 
+function pauseGame() {
+    if (!paused) {
+        clearInterval(colorCycle);
+        noMove = true;
+        paused = true;
+        gameMusic.stop();
+        $( "#toggle" ).toggle( "scale" );
+    } else {
+        colorCycle = setInterval(cycleColors, 10);
+        noMove = false;
+        paused = false;
+        gameMusic.play();
+        $( "#toggle" ).toggle( "scale" );
+    }
+}
 
 Player.prototype.handleInput = function(key) {
-        if (noMove) {return}
+        if(key === 'pause') {
+            pauseGame();
+        }
 
-        this.y = (this.iy * 83) - 27;
-        this.x = this.ix * 101;
-
-        if(key === 'left') {
-                if (this.ix > 0) {
-                    this.ix--;
-                    for (var i = 0; i < 101; i++) {
-                        setTimeout(function(){player.x--},i);
+        if (noMove) {return} else {
+            if(key === 'left') {
+                    if (this.ix > 0) {
+                        this.ix--;
+                        for (var i = 0; i < 101; i++) {
+                            setTimeout(function(){player.x--},i);
+                        }
                     }
-                }
-        }
+            }
 
-        if(key === 'right') {
-                if (this.ix < 4) {
-                    this.ix++;
-                    for (var i = 0; i < 101; i++) {
-                        setTimeout(function(){player.x++},i);
+            if(key === 'right') {
+                    if (this.ix < 4) {
+                        this.ix++;
+                        for (var i = 0; i < 101; i++) {
+                            setTimeout(function(){player.x++},i);
+                        }
                     }
-                }
-        }
+            }
 
-        if(key === 'up') {
-                if (this.iy > 0) {
-                    upSound.play();
-                    this.iy--;
-                    for (var i = 0; i < 83; i++) {
-                        setTimeout(function(){player.y--},i);
+            if(key === 'up') {
+                    if (this.iy > 0) {
+                        upSound.play();
+                        this.iy--;
+                        for (var i = 0; i < 83; i++) {
+                            setTimeout(function(){player.y--},i);
+                        }
                     }
-                }
-        }
+            }
 
-        if(key === 'down') {
-                if (this.iy < 5) {
-                    downSound.play();
-                    this.iy++;
-                    for (var i = 0; i < 83; i++) {
-                        setTimeout(function(){player.y++},i);
+            if(key === 'down') {
+                    if (this.iy < 5) {
+                        downSound.play();
+                        this.iy++;
+                        for (var i = 0; i < 83; i++) {
+                            setTimeout(function(){player.y++},i);
+                        }
                     }
-                }
+            }
         }
-
-        if (key === 'up' || key === 'down') {
-            setTimeout(function(){this.y = (this.iy * 83) - 27},84);
-        }
-
-        if (key === "left" || key === "right") {
-            setTimeout(function(){this.x = this.ix * 101},102);
-        }
-
-/*
-                //this.x > 0 ? this.x = this.xNow - 101 : this.x = 0;
-                if (this.x > 0) {
-                    noMove = true;
-                    setTimeout(function(){noMove = false},102)
-                    for (var i = 0; i < 101; i++) {
-                        setTimeout(function(){player.x = player.x - 1},i);
-                    }
-                }
-        }
-
-        if(key === 'up') {
-                //this.y > -27 ? this.y = this.yNow - 83 : this.y = -27;
-                if (this.y > -27) {
-                    noMove = true;
-                    setTimeout(function(){noMove = false},102)
-                    for (var i = 0; i < 83; i++) {
-                        setTimeout(function(){player.y = player.y - 1},i);
-                    }
-                }
-        }
-
-        if(key === 'right') {
-                //this.x < 404 ? this.x = this.xNow + 101 : this.x = 404;
-                if (this.x < 404) {
-                    noMove = true;
-                    setTimeout(function(){noMove = false},102)
-                    for (var i = 0; i < 101; i++) {
-                        setTimeout(function(){player.x = player.x + 1},i);
-                    }
-                }
-        }
-
-        if(key === 'down') {
-                //this.y < 388 ? this.y = this.yNow + 83 : this.y = 388;
-                if (this.y < 388) {
-                    noMove = true;
-                    setTimeout(function(){noMove = false},102)
-                    for (var i = 0; i < 83; i++) {
-                        setTimeout(function(){player.y = player.y + 1},i);
-                    }
-                }
-        }*/
 };
-
-
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
@@ -232,7 +191,8 @@ document.addEventListener('keyup', function(e) {
         37: 'left',
         38: 'up',
         39: 'right',
-        40: 'down'
+        40: 'down',
+        80: 'pause'
     };
 
     player.handleInput(allowedKeys[e.keyCode]);
@@ -247,10 +207,9 @@ function won() {
     console.log("Won!");
     level++;
     $('body > canvas').css('transform','rotateX(360deg)');
-    setTimeout(function(){$('body > canvas').css('transition','0ms');},1050);
-    setTimeout(function(){$('body > canvas').css('transform','none');},1100);
-    setTimeout(function(){$('body > canvas').css('transition','1000ms');},1150);
-    setTimeout(initGame,1000);
+    setTimeout(function(){$('body > canvas').css('transition','0ms');},1010);
+    setTimeout(function(){$('body > canvas').css('transform','none');},1020);
+    setTimeout(initGame,1050);
 }
 
 function gotcha() {
@@ -263,21 +222,26 @@ function gotcha() {
     $('body > canvas').css('transform','rotateZ(720deg)');
     setTimeout(function(){$('body > canvas').css('transition','0ms');},1010);
     setTimeout(function(){$('body > canvas').css('transform','none');},1020);
-    //setTimeout(function(){$('body > canvas').css('transition','1000ms');},1150);
     setTimeout(initGame,1050);
 }
+
+document.addEventListener('click', function(e) {
+    if (e.path[0].firstChild.data === 'Pause') {pauseGame();}
+});
 
 $('body > audio:nth-child(8)').bind('ended', function()  {
     gameMusic.currentTime = 0;
     gameMusic.play();
 });
 
-
 function initGame() {
     if (startMusic) {
         gameMusic.play();
         startMusic = false;
     }
+
+    $( "#toggle" ).hide();
+
     clearTimeout();
     player.x = 202;
     player.y = 388;
@@ -285,9 +249,9 @@ function initGame() {
     player.iy = 5;
     allEnemies = [];
     enemies.create(2 * level);
-    noMove = false;
     $('body > canvas').css('transition','1000ms');
     paused = false;
+    noMove = false;
     roachRun.play();
 };
 
@@ -306,10 +270,16 @@ function sound(src) {
     }
 }
 
-
-function main() {
-
+//Background color cycler
+function cycleColors(){
+    hue+=cycleSpeed;
+    hue2+=cycleSpeed;
+    hue%=361;
+    hue2%=361;
+    body.style.background = 'radial-gradient(circle, hsl(' + hue + ',100%, 75%), hsl(' + hue2 + ',100%, 75%)';
 }
 
 initGame();
-main();
+
+
+

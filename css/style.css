@@ -1,6 +1,52 @@
-body {
+html, body {
     text-align: center;
+
+    min-height:100%;
+    height:95%;
+
+    background-size:cover;
+    background-position:top center;
+
 }
+
+#pauseButton {
+    position: absolute;
+    margin: auto;
+    width: 100px;
+    height: 20px;
+    bottom: 60px;
+    left: 0;
+    right: 0;
+}
+
+#toggle {
+    display: none;
+    position: absolute;
+    width: 65%;
+    height: 30%;
+
+
+    background: #cccc;
+    text-align: center;
+    font-size: 450%;
+    z-index: 1;
+
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
 canvas {
+    height: 80%;
     transition: transform 1000ms;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding-bottom: 30px;
+    z-index: 1;
 }
