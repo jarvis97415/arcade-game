@@ -122,13 +122,23 @@ var Engine = (function(global) {
         ctx.clearRect(0,0,canvas.width,canvas.height)
 
         //Draw score board
-        ctx.font = "34px Arial";
+        ctx.font = "25px Arial";
         ctx.fillStyle="black";
-        ctx.fillText("Level",202,40);
-        ctx.fillText(level,288,40);
+
+        ctx.fillText("Player:",3,20);
+        ctx.fillText(user,3,43);
+
+        ctx.fillText("Level:",439,20);
+        ctx.fillText(level,503 - ctx.measureText(level).width,43);
+
         ctx.fillStyle="white";
-        ctx.fillText("Level",201,39);
-        ctx.fillText(level,287,39);
+
+        ctx.fillText("Player:",2,19);
+        ctx.fillText(user,2,42);
+
+        ctx.fillText("Level:",438,19);
+        ctx.fillText(level,502 - ctx.measureText(level).width,42);
+
 
         /* Loop through the number of rows and columns we've defined above
          * and, using the rowImages array, draw the correct image for that
