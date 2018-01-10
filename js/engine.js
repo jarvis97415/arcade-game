@@ -168,6 +168,10 @@ var Engine = (function(global) {
         /* Loop through all of the objects within the allEnemies array and call
          * the render function you have defined.
          */
+        allItems.forEach(function(item) {
+            item.render();
+        });
+
         allEnemies.forEach(function(enemy) {
             enemy.render();
         });
@@ -192,7 +196,12 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/char-pink-girl.png',
+        'images/Rock.png',
+        'images/Gem Blue.png',
+        'images/Gem Green.png',
+        'images/Gem Orange.png'
     ]);
     Resources.onReady(init);
 
@@ -200,5 +209,6 @@ var Engine = (function(global) {
      * object when run in a browser) so that developers can use it more easily
      * from within their app.js files.
      */
+    global.canvas = canvas;
     global.ctx = ctx;
 })(this);

@@ -1,7 +1,7 @@
 let allEnemies = [];
+let allItems = [];
 let noMove;
 let level = 1;
-//let user = getCookie("username");
 let viewOptions = false;
 let paused = false;
 let startMusic = true;
@@ -9,6 +9,9 @@ let enableSfx = true;
 let enableMusic = true;
 let sfxVol = 10;
 let musicVol = 10;
+let playerChar = 'images/char-boy.png'
+let skill = 1;
+let changeSkill = false;
 let gotCookie;
 
 // Define variables for the color cycler background
@@ -16,15 +19,19 @@ let hue = 0;
 let hue2 = 89;
 let cycleSpeed = .1;
 const body = document.getElementsByTagName("BODY")[0];
-//const pauseButton = document.getElementsByTagName("BUTTON");
 let colorCycle = setInterval(cycleColors, 10);
-
 const roachRun = new sound('sounds/roachrun.mp3');
 const ouchSound = new sound('sounds/ouch.mp3');
 const wonSound = new sound('sounds/drip.mp3');
 const upSound = new sound('sounds/up.mp3');
 const downSound = new sound('sounds/down.mp3');
 let gameMusic = new sound('sounds/bensound-psychedelic.mp3');
+
+let gems = [
+    'images/Gem Blue.png',
+    'images/Gem Green.png',
+    'images/Gem Orange.png'
+];
 
 // Enemies our player must avoid
 var Enemy = function(position, speed) {
@@ -46,6 +53,28 @@ var Enemy = function(position, speed) {
     this.speed = speed;
 };
 
+
+var Item = function(position,type) {
+    if (type==="Rock") {
+        this.sprite = 'images/Rock.png';
+        this.type = type;
+        this.x = Math.floor(Math.random() * (5 - 0 + 0) + 0) * 101;
+        if (Math.floor(Math.random() * (2 - 1 + 1) + 1) === 1) {this.y = -20;} else {this.y = 312;};
+    };
+
+    if (type==="Gem") {
+        this.sprite = gems[Math.floor(Math.random() * (3 - 1 + 1) + 1)-1];
+        this.type = type;
+        this.x = Math.floor(Math.random() * (5 - 0 + 0) + 0) * 101;
+        this.y = 83 * Math.floor(Math.random() * (3 - 1 + 1) + 1) - 20;
+    };
+
+};
+
+Item.prototype.update = function(dt) {
+
+};
+
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
@@ -57,8 +86,8 @@ Enemy.prototype.update = function(dt) {
         this.x = this.x + this.speed * dt
     } else {
         this.x = Math.floor(Math.random() * (0 - -120 + -120) + -120);
-        this.y = (Math.floor(Math.random() * (3 - 1 + 1) + 1) * 83) - 20;
-        this.speed = Math.floor(Math.random() * (200 - 50 + 50) + 50);
+        this.y = Math.floor(Math.random() * (3 - 1 + 1) + 1) * 83 - 20;
+        this.speed = Math.floor(Math.random() * ((200*skill) - 50 + 50) + 50);
     };
 };
 
@@ -67,21 +96,38 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-var Enemies = function() {
-        /* Enemies generated are pushed into this array
-         * before being pushed into the global allEnemies array
-         */
-        this.enemiesArray = [];
+// Draw the Item on the screen, required method for game
+Item.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+var Enemies = function() {
+        /* Enemies generated are pushed into this array
+        * before being pushed into the global allEnemies array
+        */
+    this.enemiesArray = [];
+};
+
+var Items = function() {
+    this.itemsArray = [];
+};
+
+Items.prototype.create = function(number,type) {
+    for(var i=0; i < number; i++) {
+            let position = Math.floor(Math.random() * (3 - 1 + 1) + 1);
+            this.itemsArray[allItems.length] = new Item(position, type);
+            allItems.push(this.itemsArray[allItems.length]);
+    }
+};
 
 Enemies.prototype.create = function(number) {
 
         for(var i = 0; i < number; i++) {
 
-            var speed = Math.floor(Math.random() * (200 - 50 + 50) + 50);
+            //let speed = Math.floor(Math.random() * ((skill*100) - (skill*50) + (skill*50) + (skill*50)));
+            let speed = Math.floor(Math.random() * ((200*skill) - 50 + 50) + 50);
 
-            var position = Math.floor(Math.random() * (3 - 1 + 1) + 1);
+            let position = Math.floor(Math.random() * (3 - 1 + 1) + 1);
 
             this.enemiesArray[allEnemies.length] = new Enemy(position, speed);
 
@@ -95,7 +141,7 @@ Enemies.prototype.create = function(number) {
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function() {
-        this.sprite = 'images/char-boy.png';
+        this.sprite = playerChar;
         this.x = 202;
         this.ix = 2;
         this.y = 388;
@@ -215,7 +261,7 @@ Player.prototype.handleInput = function(key) {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-
+var items = new Items();
 var enemies = new Enemies();
 var player = new Player();
 
@@ -252,7 +298,7 @@ function won() {
     setTimeout(function(){$('body > canvas').css('transition','0ms');},1010);
     setTimeout(function(){$('body > canvas').css('transform','none');},1020);
     setTimeout(initGame,1050);
-    setTimeout(function(){modal("scale");},1500);
+    setTimeout(function(){modal("scale");},2000);
 }
 
 function gotcha() {
@@ -283,8 +329,21 @@ $('#optionsOkay').on("click",function(){
 $(document).on({
     click: function(){
         optionsScreen();
+        if (changeSkill) {
+            changeSkill=false;
+            setTimeout(function(){window.location.reload(true);},500);
+        }
     }
 }, '#optionsOkay');
+
+$(document).on({
+    click: function(){
+        optionsScreen();
+        $('canvas').toggle('scale');
+        killCookie();
+        setTimeout(function(){window.location.reload(true);},500);
+    }
+}, '#killCookie');
 
 $(document).on({
     change: function() {
@@ -335,11 +394,33 @@ $(document).on({
     }
 }, '#enableSfx');
 
+$(document).on({
+  change: function() {
+        changeSkill=true;
+        skill = document.getElementById("skill").value;
+        if (gotCookie) {setCookie("skill",skill,60)};
+    }
+}, '#skill');
+
+$(document).on({
+    click: function() {
+        player.sprite = "images/char-boy.png"
+        if (gotCookie) {setCookie("char","images/char-boy.png",60)};
+    }
+}, '#playerImgs > img:nth-child(1)');
+
+$(document).on({
+    click: function() {
+        player.sprite = "images/char-pink-girl.png"
+        if (gotCookie) {setCookie("char","images/char-pink-girl.png",60)};
+    }
+}, '#playerImgs > img:nth-child(2)');
+
 function optionsScreen(){
     if (!viewOptions) {
         if (paused) {return;};
         viewOptions=true;
-        $('#options').toggle('scale');
+        $('#options').toggle('fade');
         noMove = true;
         paused = true;
         if (enableMusic) {
@@ -351,20 +432,15 @@ function optionsScreen(){
 
 
     } else {
-        $('#options').toggle('scale');
+        $('#options').toggle('fade');
         viewOptions=false;
         noMove = false;
         paused = false;
     }
     document.getElementById("musicVol").value = musicVol;
     document.getElementById("sfxVol").value = sfxVol;
+    document.getElementById("skill").value = skill;
 }
-
-
-
-
-
-
 
 $('body > audio:nth-child(9)').bind('ended', function()  {
     gameMusic.currentTime = 0;
@@ -377,7 +453,6 @@ function initGame() {
         enableMusic = bool(getCookie("music"));
         musicVol = Number(getCookie("musicVol"));
         gameMusic.sound.volume = musicVol/10;
-        console.log("music vol", musicVol);
         enableSfx = bool(getCookie("sfx"));
         sfxVol = Number(getCookie("sfxVol"));
         roachRun.sound.volume = sfxVol/10;
@@ -385,8 +460,8 @@ function initGame() {
         wonSound.sound.volume = sfxVol/10;
         upSound.sound.volume = sfxVol/10;
         downSound.sound.volume = sfxVol/10
-
-        console.log(user,level,enableMusic,enableSfx);
+        player.sprite = getCookie("char");
+        skill = Number(getCookie("skill"));
     }
 
     if ((startMusic) && (enableMusic)) {
@@ -400,10 +475,11 @@ function initGame() {
     player.ix = 2;
     player.iy = 5;
     allEnemies = [];
-    enemies.create(2 * level);
+    enemies.create(skill * level);
     $('body > canvas').css('transition','1000ms');
     paused = false;
     noMove = true;
+
     setTimeout(function(){noMove=false;},1000);
     if (enableSfx) {roachRun.play();};
 };
@@ -466,6 +542,8 @@ function killCookie() {
     setCookie("sfx", "", 0);
     setCookie("musicVol", "", 0);
     setCookie("sfxVol", "", 0);
+    setCookie("char","",0);
+    setCookie("skill","",0);
 }
 
 function checkCookie() {
@@ -480,11 +558,12 @@ function checkCookie() {
             setCookie("sfx", true, 60);
             setCookie("musicVol", musicVol, 60);
             setCookie("sfxVol", sfxVol, 60);
+            setCookie("char","images/char-boy.png",60);
+            setCookie("skill",skill);
         } else {gotCookie=false; user="Incognito"; return;}
     }
     gotCookie = true; return;
 }
-
 
 checkCookie();
 setTimeout(function(){modal("shake","<h1>Bugs!</h1>","500%","#ffff00");},500);
@@ -492,4 +571,3 @@ setTimeout(function(){modal("scale");},1600);
 setTimeout(function(){$('canvas').toggle('scale');},100);
 setTimeout(function(){$('.conPanel').css('display','inline')},500);
 initGame();
-

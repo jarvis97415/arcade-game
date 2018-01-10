@@ -21,15 +21,24 @@
     <div id="toggle"></div>
     <div id="options">
         <h1>Options</h1>
-        <p>Enable music    <input type="checkbox" id="enableMusic" value="enableMusic"></p>
-        <p>Music volume
-        <input type="range" id="musicVol" name="Music volume" min="0" max="10" value="10"></p>
-        <p>Enable Sound FX <input type="checkbox" id="enableSfx" value="enableSfx"></p>
-        <p>Effect volume
-        <input type="range" id="sfxVol" name="Effects volume" min="0" max="10" value="10"></p>
-
-
+        <hr>
+        <p>Enable music<input type="checkbox" class="checkbox" id="enableMusic" value="enableMusic"><br></p>
+        <p>Music volume<input type="range" id="musicVol" class="volume" name="Music volume" min="0" max="10" value="10"><br></p>
+        <p>Enable Sound FX<input type="checkbox" class="checkbox" id="enableSfx" value="enableSfx"><br></p>
+        <p>Effect volume<input type="range" id="sfxVol" class="volume" name="Effects volume" min="0" max="10" value="10"><hr></p>
+        <div id="pickPlayer">
+            <p>Pick player</p>
+            <div id="playerImgs">
+                <img src="images/char-boy.png">
+                <img src="images/char-pink-girl.png">
+            </div>
+            <hr>
+        </div>
+        <span>Easy-Moderate-Hard</span>
+        <p>Difficulty<input type="range" id="skill" class="volume" name="Difficulty level" min="1" max="3" value="1"></p>
         <button id="optionsOkay">Okay</button>
+        <button id="killCookie">Reset Game</button>
+
     </div>
 
 </body>

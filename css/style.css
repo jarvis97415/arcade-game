@@ -3,6 +3,7 @@ html {
     width: 100%;
 }
 body {
+    overflow: hidden;
     text-align: center;
 
 
@@ -85,13 +86,13 @@ canvas {
     display: none;
 
     position: absolute;
-    width: 450px;
-    height: 50%;
+    width: 500px;
+    height: 60%;
     background: #8f008f8f;
     font-family: 'Permanent Marker', cursive;
     color: white;
     text-shadow: 5px 5px 10px #0a0a0a;
-    text-align: center;
+
     z-index: 100;
 
     margin: auto;
@@ -101,13 +102,57 @@ canvas {
     left: 0;
 }
 
-#options h1 {
-    margin-top: 5px;
+#options > h1 {
+    text-align: center;
+    margin: 5px 0 5px 0;
     font-size: 300%;
 }
 
-#options #optionsOkay {
-    margin: 5px;
+#options > p {
+    font-size: 200%;
+    text-align: left;
+    left: 20px;
+    margin: 5px 0 5px 30px;
+}
+
+#options > span {
+    font-size: 120%;
+    display: block;
+    text-align: right;
+    margin: 0 10px -20px 0;
+}
+
+.checkbox {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    margin-top: 16px;
+    right: 30px;
+}
+
+.volume {
+    position: absolute;
+    margin-top: 16px;
+    right: 30px;
+    width: 30%;
+}
+
+#pickPlayer > p {
+    font-size: 200%;
+    text-align: left;
+    left: 20px;
+    margin: 40px 0 5px 30px;
+}
+
+#playerImgs {
+    width: 50%;
+    height: 25%;
+    margin-top: -130px;
+    margin-left: 240px;
+    padding: 0;
+}
+
+#optionsOkay {
     font-family: 'Permanent Marker', cursive;
     background-color: #00000040;
     border: solid;
@@ -117,4 +162,18 @@ canvas {
     text-align: center;
     font-size: 32px;
     box-shadow: 4px 4px 8px #000000;
+    margin: 5px;
+}
+
+#killCookie {
+    font-family: 'Permanent Marker', cursive;
+    background-color: #00000040;
+    border: solid;
+    border-radius: 5px;
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+    text-align: center;
+    font-size: 32px;
+    box-shadow: 4px 4px 8px #000000;
+    margin: 5px;
 }
