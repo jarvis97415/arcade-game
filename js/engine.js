@@ -168,10 +168,6 @@ var Engine = (function(global) {
         /* Loop through all of the objects within the allEnemies array and call
          * the render function you have defined.
          */
-        allItems.forEach(function(item) {
-            item.render();
-        });
-
         allEnemies.forEach(function(enemy) {
             enemy.render();
         });
@@ -198,10 +194,7 @@ var Engine = (function(global) {
         'images/enemy-bug.png',
         'images/char-boy.png',
         'images/char-pink-girl.png',
-        'images/Rock.png',
-        'images/Gem Blue.png',
-        'images/Gem Green.png',
-        'images/Gem Orange.png'
+        'images/Rock.png'
     ]);
     Resources.onReady(init);
 

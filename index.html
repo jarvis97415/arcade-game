@@ -1,45 +1,51 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>Bugga!</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
-
-</head>
-<body>
-    <div class="conPanel">
-        <button id="pauseButton">Pause</button>
-        <button id="optionsButton">Options</button>
-    </div>
-    <script src="js/resources.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/engine.js"></script>
-
-    <div id="toggle"></div>
-    <div id="options">
-        <h1>Options</h1>
-        <hr>
-        <p>Enable music<input type="checkbox" class="checkbox" id="enableMusic" value="enableMusic"><br></p>
-        <p>Music volume<input type="range" id="musicVol" class="volume" name="Music volume" min="0" max="10" value="10"><br></p>
-        <p>Enable Sound FX<input type="checkbox" class="checkbox" id="enableSfx" value="enableSfx"><br></p>
-        <p>Effect volume<input type="range" id="sfxVol" class="volume" name="Effects volume" min="0" max="10" value="10"><hr></p>
-        <div id="pickPlayer">
-            <p>Pick player</p>
-            <div id="playerImgs">
-                <img src="images/char-boy.png">
-                <img src="images/char-pink-girl.png">
-            </div>
-            <hr>
+    <head>
+        <meta charset="UTF-8">
+        <title>Bugga!</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
+    </head>
+    <body>
+        <div id="conPanel">
+            <button id="pauseButton">Pause</button>
+            <button id="optionsButton">Options</button>
         </div>
-        <span>Easy-Moderate-Hard</span>
-        <p>Difficulty<input type="range" id="skill" class="volume" name="Difficulty level" min="1" max="3" value="1"></p>
-        <button id="optionsOkay">Okay</button>
-        <button id="killCookie">Reset Game</button>
-
-    </div>
-
-</body>
+        <div id="toggle"></div>
+        <div id="options">
+            <h1>Options</h1>
+            <hr>
+            <p>Enable music<input type="checkbox" class="checkbox" id="enableMusic" value="enableMusic"><br></p>
+            <p>Music volume<input type="range" id="musicVol" class="volume" name="Music volume" min="0" max="10" value="10"><br></p>
+            <p>Enable Sound FX<input type="checkbox" class="checkbox" id="enableSfx" value="enableSfx"><br></p>
+            <p>Effect volume<input type="range" id="sfxVol" class="volume" name="Effects volume" min="0" max="10" value="10"><hr></p>
+            <div id="pickPlayer">
+                <p>Pick player</p>
+                <div id="playerImgs">
+                    <img id="charboyimg" src="images/char-boy.png">
+                    <img id="chargirlimg" src="images/char-pink-girl.png">
+                </div>
+                <hr>
+            </div>
+            <span>Easy-Moderate-Hard</span>
+            <p>Difficulty<input type="range" id="skill" class="volume" name="Difficulty level" min="1" max="3" value="1"></p>
+            <button id="optionsOkay">Okay</button>
+            <button id="killCookie">Reset Game</button>
+        </div>
+        <div id="whoAreYou">
+            <h1>Who are you?</h1>
+            <hr>
+            <h2>Please enter a name for your player.</h2>
+            <input id="userText" type="text" value="">
+            <button id="userSubmit">Submit</button>
+            <p>If you choose to not enter a name, you will not recieve any cookies, and your progress will not be saved.</p>
+        </div>
+        <script src="js/app.js"></script>
+        <script src="js/resources.js"></script>
+        <script src="js/engine.js"></script>
+        <footer><center>Music courtesy bensound.com</center></footer>
+    </body>
 </html>
