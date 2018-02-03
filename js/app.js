@@ -541,11 +541,11 @@ function readCookie() {
 function setUser() {
     setCookie('username', user, 60);
     setCookie('level', level, 60);
-    setCookie('music', true, 60);
-    setCookie('sfx', true, 60);
+    setCookie('music', enableMusic, 60);
+    setCookie('sfx', enableSfx, 60);
     setCookie('musicVol', musicVol, 60);
     setCookie('sfxVol', sfxVol, 60);
-    setCookie('char','images/char-boy.png',60);
+    setCookie('char', player.sprite, 60);
     setCookie('skill',skill);
     gotCookie = true;
 }
