@@ -3,6 +3,7 @@ html {
     width: 100%;
     margin: 0;
 }
+
 body {
     overflow: hidden;
     text-align: center;
@@ -12,6 +13,11 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
+}
+
+footer {
+    display: none;
+    text-align: center;
 }
 
 #conPanel {
@@ -31,14 +37,14 @@ body {
     display: inline;
     margin: auto;
     font-family: 'Permanent Marker', cursive;
-    background-color: #00000040;
+    background-color: rgba(0,0,0,0.25);
     border: solid;
     border-radius: 5px;
     color: white;
-    text-shadow: 2px 2px 4px #000000;
+    text-shadow: 2px 2px 4px black;
     text-align: center;
     font-size: 1.5em;
-    box-shadow: 4px 4px 8px #000000;
+    box-shadow: 4px 4px 8px black;
 }
 
 #optionsButton {
@@ -48,14 +54,14 @@ body {
     display: inline;
     margin: auto;
     font-family: 'Permanent Marker', cursive;
-    background-color: #00000040;
+    background-color: rgba(0,0,0,0.25);
     border: solid;
     border-radius: 5px;
     color: white;
-    text-shadow: 2px 2px 4px #000000;
+    text-shadow: 2px 2px 4px black;
     text-align: center;
     font-size: 1.5em;
-    box-shadow: 4px 4px 8px #000000;
+    box-shadow: 4px 4px 8px black;
 }
 
 canvas {
@@ -66,19 +72,19 @@ canvas {
     padding-top: 5%;
     z-index: 0;
 }
+
 #toggle {
     display: none;
     vertical-align: middle;
     position: absolute;
     height: 320px;
     max-width: 90%;
-    background: #00000000;
+    background-color: rgba(0,0,0,0);
     font-family: 'Permanent Marker', cursive;
     text-shadow: 5px 5px 10px #0a0a0a;
     text-align: center;
     vertical-align: middle;
     z-index: 1;
-
     margin: auto;
     top: 0;
     right: 0;
@@ -95,7 +101,7 @@ canvas {
     position: absolute;
     max-width: 540px;
     height: 300px;
-    background: #8f008f8f;
+    background: rgba(143, 0, 143, 0.4);
     font-family: 'Permanent Marker', cursive;
     color: white;
     text-shadow: 5px 5px 10px #0a0a0a;
@@ -105,52 +111,50 @@ canvas {
     bottom: 0;
     left: 0;
 }
+
 #whoAreYou > p {
     vertical-align: bottom;
 }
+
 #userText {
     font-size: 1.6em;
-    background: #00000000;
+    background: black;
     border: solid;
     border-radius: 5px;
     color: white;
-    text-shadow: 2px 2px 4px #000000;
-    box-shadow: 4px 4px 8px #000000;
+    text-shadow: 2px 2px 4px black;
+    box-shadow: 4px 4px 8px black;
     height: 34px;
 }
+
 #userSubmit {
     font-family: 'Permanent Marker', cursive;
-    background-color: #00000040;
+    background-color: black;
     border: solid;
     border-radius: 5px;
     color: white;
-    text-shadow: 2px 2px 4px #000000;
+    text-shadow: 2px 2px 4px black;
     text-align: center;
     font-size: 1.5em;
-    box-shadow: 4px 4px 8px #000000;
+    box-shadow: 4px 4px 8px black;
     margin: 5px;
-    padding-bottom: -25%;
 }
 
 #options {
     border: 4px solid white;
     border-radius: 8px;
-    box-shadow: 4px 4px 8px #000000;
-
+    box-shadow: 4px 4px 8px black;
     display: none;
     overflow: auto;
-
     position: absolute;
     width: 50%;
     height: 60%;
     max-height: 600px;
-    background: #8f008f8f;
+    background: rgba(143, 0, 143, 0.4);
     font-family: 'Permanent Marker', cursive;
     color: white;
     text-shadow: 5px 5px 10px #0a0a0a;
-
     z-index: 100;
-
     margin: auto;
     top: 0;
     right: 0;
@@ -210,109 +214,126 @@ canvas {
 
 #optionsOkay {
     font-family: 'Permanent Marker', cursive;
-    background-color: #00000040;
+    background-color: rgba(0, 0, 0, 0.4);
     border: solid;
     border-radius: 5px;
     color: white;
-    text-shadow: 2px 2px 4px #000000;
+    text-shadow: 2px 2px 4px black;
     text-align: center;
     font-size: 1.5em;
-    box-shadow: 4px 4px 8px #000000;
+    box-shadow: 4px 4px 8px black;
     margin: 5px;
-    padding-bottom: -25%;
 }
 
 #killCookie {
     font-family: 'Permanent Marker', cursive;
-    background-color: #00000040;
+    background-color: rgba(0, 0, 0, 0.4);
     border: solid;
     border-radius: 5px;
     color: white;
-    text-shadow: 2px 2px 4px #000000;
+    text-shadow: 2px 2px 4px black;
     text-align: center;
     font-size: 1.5em;
-    box-shadow: 4px 4px 8px #000000;
+    box-shadow: 4px 4px 8px black;
     margin: 5px;
 }
 
 /* The following @media querys are for compatibility with phones*/
 @media screen and (min-width: 480px) {
+
     #options {
         min-width: 500px;
         min-height: 600px;
         max-width: 550px;
     }
+
 }
 
 @media screen and (max-width: 480px) {
+
     #userText {
         font-size: 1em;
         height: 34px;
     }
+
     #userSubmit {
         font-size: 1em;
         margin: 5px;
     }
+
     #whoAreYou {
         width: 90%;
         height: 65%;
     }
+
     #whoAreYou > h1 {
         font-size: 1.75em;
     }
+
     #whoAreYou > h2 {
         font-size: 1.25em;
     }
+
     canvas {
         width: 100%;
         height: auto;
         padding-top: 15%;
     }
+
     #options {
         width: 95%;
         height: 70%;
-
         margin-top: 20%;
     }
+
     #options > h1 {
         font-size: 2em;
         margin: 2px 0 2px 0;
     }
+
     #options > p {
         font-size: 1.5em;
         text-align: left;
         margin: 5px 0 5px 15px;
     }
+
     .volume {
         margin-top: 10px;
         right: 10px;
         width: 120px;
     }
+
     .checkbox {
         position: absolute;
         margin-top: 10px;
         right: 15px;
     }
+
     #pickPlayer > p {
         font-size: 1.5em;
         text-align: left;
         margin: 5px 0 5px 15px;
         padding-top: 10px;
     }
+
     #playerImgs {
         margin-top: -90px;
         margin-left: 50%;
         margin-bottom: -20px;
     }
+
     #playerImgs > img {
         width: 40%;
     }
+
     #options > span {
         font-size: .85em;
         margin: 0 4px -15px 0;
     }
 }
+
 @media screen and (max-width: 359px) {
+
     #options {
         height: 90%;
         margin-top: 15px;
@@ -330,66 +351,85 @@ canvas {
         right: 10px;
         width: 100px;
     }
+
 }
+
 @media screen and (min-height: 640px) and (max-height: 768px) {
+
     #whoAreYou {
         height: 320px;
     }
+
 }
+
 @media screen and (max-height: 360px) {
+
     canvas {
         width: auto;
         height: 85%;
         padding-top: 9%;
     }
+
     #toggle {
         height: 200px;
     }
+
     #conPanel {
         height: 16px;
     }
+
     #whoAreYou {
         width: 90%;
     }
+
     #options {
         color: red;
         width: 75%;
     }
+
     #options > h1 {
         font-size: 2em;
         margin: 2px 0 2px 0;
     }
+
     #options > p {
         font-size: 1.5em;
         text-align: left;
         margin: 5px 0 5px 15px;
     }
+
     .volume {
         margin-top: 10px;
         right: 10px;
         width: 120px;
     }
+
     .checkbox {
         position: absolute;
         margin-top: 10px;
         right: 15px;
     }
+
     #pickPlayer > p {
         font-size: 1.5em;
         text-align: left;
         margin: 5px 0 5px 15px;
         padding-top: 10px;
     }
+
     #playerImgs {
         margin-top: -90px;
         margin-left: 50%;
         margin-bottom: -20px;
     }
+
     #playerImgs > img {
         width: 40%;
     }
+
     #options > span {
         font-size: .85em;
         margin: 0 4px -15px 0;
     }
+
 }

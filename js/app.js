@@ -103,9 +103,6 @@ Player.prototype.update = function() {
             }
         }
     }
-    if (this.y === -27) {
-        won();
-    }
 };
 
 //Thats one way to do a modal
@@ -213,6 +210,7 @@ Player.prototype.handleInput = function(key) {
                     if (this.iy > 0) {
                         if (enableSfx) {upSound.play();}
                         this.iy--;
+                        if (this.iy === 0) {setTimeout(won,250);}
                         slidePlayer(key);
                     }
             }
@@ -607,7 +605,10 @@ function welcome() {
     setTimeout(function(){modal('shake','<h1>Bugs!</h1>','3.2em','#ffff00');},500);
     setTimeout(function(){modal('scale');},1600);
     setTimeout(function(){$('canvas').toggle('scale');},100);
-    setTimeout(function(){$('#conPanel').css('display','inline');},500);
+    setTimeout(function(){
+        $('#conPanel').css('display','inline');
+        $('footer').css('display','block');
+    },500);
 }
 
 //Call function to check for existing cookies

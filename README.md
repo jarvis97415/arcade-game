@@ -25,6 +25,11 @@ If your browser allows cookies and you provide a player name on the first load, 
 
 A modern web browser capable of the latest javascript implimentation. For this early version a keyboard is also required for play.  Joystick implimentation is in the works, and touch support will also be included in the future.
 
+### Quick Start
+
+[Play now on github](http://jarvis97415.github.io/arcade-game/)
+
+
 ### Installing
 
 This game must be played from a web server in order for the full functionality of the cookie handler to work.
