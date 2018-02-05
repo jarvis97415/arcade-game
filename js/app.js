@@ -563,7 +563,7 @@ function setUser() {
     setCookie('musicVol', musicVol, 60);
     setCookie('sfxVol', sfxVol, 60);
     setCookie('char', player.sprite, 60);
-    setCookie('skill',skill);
+    setCookie('skill', skill, 60);
     gotCookie = true;
 }
 
