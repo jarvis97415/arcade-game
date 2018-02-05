@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+/*jslint browser: true, devel: true */
 // Define varaiable
 let allEnemies = [];
 let noMove;
@@ -17,7 +19,7 @@ let gotCookie;
 let holdGame = false;
 let hue = 0;
 let hue2 = 89;
-let cycleSpeed = .1;
+let cycleSpeed = 0.1;
 let colorCycle = setInterval(cycleColors, 10);
 const roachRun = new sound('sounds/roachrun.mp3');
 const ouchSound = new sound('sounds/ouch.mp3');
@@ -95,13 +97,13 @@ var Player = function() {
 Player.prototype.update = function() {
     if (!paused) {for (var i = 0; i < allEnemies.length; i++) {
             if (allEnemies[i].y -7 === this.y) {
-                if ((allEnemies[i].x + 70) > player.x && allEnemies[i].x < (player.x + 70)) {
+                if ((allEnemies[i].x + 70) > this.x && allEnemies[i].x < (this.x + 70)) {
                     gotcha();
                 }
             }
         }
     }
-    if (player.y === -27) {
+    if (this.y === -27) {
         won();
     }
 };
@@ -128,6 +130,31 @@ function pauseGame() {
         paused = false;
         if (enableMusic) {gameMusic.play();}
         modal('scale');
+    }
+}
+
+function slidePlayer (direction) {
+    switch(direction) {
+        case 'up':
+            for (i = 0; i < 83; i++) {
+                setTimeout(function(){this.y--;}.bind(player),i);
+            }
+            break;
+        case 'down':
+            for (i = 0; i < 83; i++) {
+                setTimeout(function(){this.y++;}.bind(player),i);
+            }
+            break;
+        case 'left':
+            for (i = 0; i < 101; i++) {
+                setTimeout(function(){this.x--;}.bind(player),i);
+            }
+            break;
+        case 'right':
+            for (i = 0; i < 101; i++) {
+                setTimeout(function(){this.x++;}.bind(player),i);
+            }
+            break;
     }
 }
 
@@ -171,18 +198,14 @@ Player.prototype.handleInput = function(key) {
             if(key === 'left') {
                     if (this.ix > 0) {
                         this.ix--;
-                        for (var i = 0; i < 101; i++) {
-                            setTimeout(function(){thus.x--;},i);
-                        }
+                        slidePlayer(key);
                     }
             }
 
             if(key === 'right') {
                     if (this.ix < 4) {
                         this.ix++;
-                        for (var i = 0; i < 101; i++) {
-                            setTimeout(function(){thus.x++;},i);
-                        }
+                        slidePlayer(key);
                     }
             }
 
@@ -190,9 +213,7 @@ Player.prototype.handleInput = function(key) {
                     if (this.iy > 0) {
                         if (enableSfx) {upSound.play();}
                         this.iy--;
-                        for (var i = 0; i < 83; i++) {
-                            setTimeout(function(){thus.y--;},i);
-                        }
+                        slidePlayer(key);
                     }
             }
 
@@ -200,9 +221,7 @@ Player.prototype.handleInput = function(key) {
                     if (this.iy < 5) {
                         if (enableSfx) {downSound.play();}
                         this.iy++;
-                        for (var i = 0; i < 83; i++) {
-                            setTimeout(function(){thus.y++;},i);
-                        }
+                        slidePlayer(key);
                     }
             }
         }
